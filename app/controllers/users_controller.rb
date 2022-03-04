@@ -14,4 +14,24 @@ class UsersController < ApplicationController
     end
   end
 
+  def show
+    user = User.find(params[:id])
+    render json:user
+  end
+
+  def update
+    user = User.find(params[:id])
+    user.email = params[:email] || user.email
+    user.username = params[:username] || user.username
+    user.image_url = params[:image_url] || user.image_url
+    user.save
+    render json:user
+  end
+
+  def destroy
+    user = User.find(params[:id])
+    user.destroy
+    render json:{message: "The user #{user.username} was destroyed.  Do you feel good about yourself?"}
+  end
+
 end

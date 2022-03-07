@@ -8,7 +8,7 @@ class DecksController < ApplicationController
   def create
     deck = Deck.new(
       #current user
-      user_id: params[:user_id],
+      user_id: current_user.id,
       name: params[:name]
     )
     if deck.save
@@ -24,7 +24,6 @@ class DecksController < ApplicationController
 
   def update
     deck = Deck.find(params[:id])
-    deck.user_id = params[:user_id] || deck.user_id
     deck.name = params[:name] || deck.name
     deck.save
     render json:deck

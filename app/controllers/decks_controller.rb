@@ -7,6 +7,7 @@ class DecksController < ApplicationController
 
   def create
     deck = Deck.new(
+      #current user
       user_id: params[:user_id],
       name: params[:name]
     )

@@ -1,4 +1,5 @@
 class DecksController < ApplicationController
+  before_action :authenticate_user, except: [:index, :show]
 
   def index
     deck = Deck.all
@@ -25,8 +26,10 @@ class DecksController < ApplicationController
   def update
     deck = Deck.find(params[:id])
     deck.name = params[:name] || deck.name
-    deck.save
-    render json:deck
+    if deck.save
+      render json:deck
+    else render json: { errors: deck.errors.full_messages }, status: :bad_request
+    end
   end
 
   def destroy

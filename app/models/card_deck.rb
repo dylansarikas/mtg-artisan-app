@@ -5,11 +5,12 @@ class CardDeck < ApplicationRecord
   def card
     response = HTTP.get("https://api.scryfall.com/cards/multiverse/#{multiverse_id}")
     cardboard = response.parse(:json)
-    return {
-      name: cardboard["name"],
-      multiverse: cardboard["multiverse_ids"],
-      image: cardboard["image_uris"]["normal"]
-    }
+    # return {
+    #   name: cardboard["name"],
+    #   multiverse: cardboard["multiverse_ids"],
+    #   image: cardboard["image_uris"]["normal"]
+    # }
+    return cardboard
 
   end
 

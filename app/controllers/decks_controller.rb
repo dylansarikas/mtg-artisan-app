@@ -3,7 +3,7 @@ class DecksController < ApplicationController
 
   def index
     deck = Deck.all
-    render json:deck
+    render json: {name: deck.name}
   end
 
   def create
@@ -24,18 +24,26 @@ class DecksController < ApplicationController
   end
 
   def update
-    deck = Deck.find(params[:id])
-    deck.name = params[:name] || deck.name
-    if deck.save
-      render json:deck
-    else render json: { errors: deck.errors.full_messages }, status: :bad_request
+    if current_user.id == Deck.find(params[:id]).user_id
+      deck = Deck.find(params[:id])
+      deck.name = params[:name] || deck.name
+      if deck.save
+        render json:deck
+      else render json: { errors: deck.errors.full_messages }, status: :bad_request
+      end
+    else
+      render json: {}, status: :unauthorized
     end
   end
 
   def destroy
-    deck = Deck.find(params[:id])
-    deck.destroy
-    render json:{message: "The deck #{deck.name} was destroyed.  Do you feel good about yourself?"}
+    if current_user.id == Deck.find(params[:id]).user_id
+      deck = Deck.find(params[:id])
+      deck.destroy
+      render json:{message: "The deck #{deck.name} was destroyed.  Do you feel good about yourself?"}
+    else
+      render json: {}, status: :unauthorized
+    end
   end
 
 end

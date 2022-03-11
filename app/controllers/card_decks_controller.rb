@@ -14,10 +14,15 @@ class CardDecksController < ApplicationController
 
   def update
     carddeck = CardDeck.find(params[:id])
-    carddeck.amount = params[:amount] || carddeck.amount
-    if carddeck.save
-      render json:carddeck
-    else render json: { errors: carddeck.errors.full_messages }, status: :bad_request
+    if params[:amount] == 0
+      carddeck.delete
+      render json:{message: "The CardDeck #{carddeck.id} was destroyed.  Do you feel good about yourself?"}
+    else
+      carddeck.amount = params[:amount] || carddeck.amount
+      if carddeck.save
+        render json:carddeck
+      else render json: { errors: carddeck.errors.full_messages }, status: :bad_request
+      end
     end
   end
 

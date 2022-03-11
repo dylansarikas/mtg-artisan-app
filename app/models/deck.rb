@@ -4,4 +4,12 @@ class Deck < ApplicationRecord
   
   belongs_to :user
 
+  def deck_size
+    size = 0
+    card_decks.each do |card_deck|
+      size += card_deck.amount
+    end
+    return size
+  end
+
 end

@@ -3,7 +3,7 @@ class DecksController < ApplicationController
 
   def index
     deck = Deck.all
-    render json: deck, include: []
+    render json: deck, include: ["user"]
   end
 
   def create

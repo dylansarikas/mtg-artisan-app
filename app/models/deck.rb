@@ -12,4 +12,8 @@ class Deck < ApplicationRecord
     return size
   end
 
+  # def username
+  #   return object.user.username
+  # end
+
 end

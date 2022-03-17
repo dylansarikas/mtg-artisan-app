@@ -7,6 +7,9 @@ class Deck < ApplicationRecord
   def deck_size
     size = 0
     card_decks.each do |card_deck|
+      if card_deck.amount == nil
+        card_deck.amount = 1
+      end
       size += card_deck.amount
     end
     return size

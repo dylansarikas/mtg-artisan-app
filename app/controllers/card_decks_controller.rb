@@ -20,7 +20,7 @@ class CardDecksController < ApplicationController
     if (params[:amount] + CardDeck.find(params[:id]).deck.deck_size - CardDeck.find(params[:id]).amount) < 101
       carddeck = CardDeck.find(params[:id])
       if params[:amount] == 0
-        carddeck.delete
+        carddeck.destroy
         render json:{message: "The CardDeck #{carddeck.id} was destroyed.  Do you feel good about yourself?"}
       else
         carddeck.amount = params[:amount] || carddeck.amount
@@ -34,7 +34,7 @@ class CardDecksController < ApplicationController
     end
   end
 
-  def delete
+  def destroy
     carddeck = CardDeck.find(params[:id])
     carddeck.destroy
     render json:{message: "The CardDeck #{carddeck.id} was destroyed.  Do you feel good about yourself?"}

@@ -8,8 +8,11 @@ class CardDecksController < ApplicationController
         amount: params[:amount]
       )
       if carddeck.save
+        # print "SUCCESS SUCCESS SUCCESS SUCCESS"
         render json:carddeck
-      else render json: { errors: carddeck.errors.full_messages }, status: :bad_request
+      else 
+        render json: { errors: carddeck.errors.full_messages }, status: :bad_request
+        # print "FAILURE FAILURE FAILURE"
       end
     else
       render json: {error: "Deck Cannot Exceed 100 total cards"}

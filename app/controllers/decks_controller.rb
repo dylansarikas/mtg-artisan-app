@@ -1,6 +1,8 @@
 class DecksController < ApplicationController
   before_action :authenticate_user, except: [:index, :show]
 
+  #Basic CRUD stuff
+
   def index
     deck = Deck.all
     render json: deck, include: ["user"]
